@@ -1,0 +1,14 @@
+label{
+	font-weight:500;
+}
+/*Para darle estilo al div de bloqueo de pantalla creado con jsShowWindowLoad*/
+#WindowLoad{
+    position:fixed;
+    top:0px;
+    left:0px;
+    z-index:3200;
+    filter:alpha(opacity=65);
+   -moz-opacity:65;
+    opacity:0.65;
+    background:#999;
+}

@@ -1,0 +1,8 @@
+/* 
+    Created on : 9 abr. 2021, 15:37:56
+    Author     : Ismael_2
+*/
+.modal {
+	/*Para resolver el problema donde el modal aparece detrás del menú de navegación*/
+	z-index: 9999999;
+}
