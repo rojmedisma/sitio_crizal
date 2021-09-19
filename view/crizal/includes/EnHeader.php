@@ -9,7 +9,7 @@
 							</div>
 							<div class="col-xs-12 col-md-3 xs-display-none">
 								<ul class="top-social-icon">
-									<li><a href="#!"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</a></li>
+									<li><a href="<?= define_controlador('sesion', 'inicio') ?>"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</a></li>
 									<li><a href="<?= define_controlador('registro', 'inicio') ?>"><i class="fas fa-user-plus"></i> Registrarse</a></li>
 								</ul>
 							</div>

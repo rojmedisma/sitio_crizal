@@ -39,5 +39,10 @@ Proyecto para conectar productores agrícolas y compradores haciendo uso de la p
 - Nueva clase modelo **FormularioCrizal**
 - Archivo **index.php**. Se adaptaron los includes para llamar a las clases que pertenecen al proyecto
 
+## Versión 0.1.2.16
 
+> Cambios en el proyecto
 
+- Nueva vista **registro** para registar usuario
+- Nueva vista **sesion** para iniciar sesion
+- Nueva clase controlador **SesionControl**

@@ -117,6 +117,12 @@ class Distintivos{
 					"titulo_pagina"=>"Registro",
 					"arr_pag_ant"=>array()
 				),
+			),
+			"sesion"=>array(
+				"inicio"=>array(
+					"titulo_pagina"=>"Iniciar sesión",
+					"arr_pag_ant"=>array()
+				),
 			)
 		);
 	}
