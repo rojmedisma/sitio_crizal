@@ -1,10 +1,10 @@
-# Proyecto Sitio Crizal
+# Proyecto Granero virtual
 
-Código principal para sitios web implementando plantilla boostrap Crizal. Usando arquitectura MVC.
+Proyecto para conectar productores agrícolas y compradores haciendo uso de la plataforma como medio de interacción
 
 # Versiones
 
-> Código fuente/origen sacado del proyecto **enketo** versión **0.0.1.14**
+> Código fuente/origen sacado del proyecto **sitio_crizal** versión **0.0.1.14**
 
 ## Versión 0.0.1.14
 
