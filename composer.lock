@@ -1,0 +1,69 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "956f036c3e32eb3802e79aea0dde9bc5",
+    "packages": [
+        {
+            "name": "stefangabos/zebra_pagination",
+            "version": "2.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stefangabos/Zebra_Pagination.git",
+                "reference": "1b75050519c19de59b70464de7cc02abcbe75a76"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stefangabos/Zebra_Pagination/zipball/1b75050519c19de59b70464de7cc02abcbe75a76",
+                "reference": "1b75050519c19de59b70464de7cc02abcbe75a76",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "Zebra_Pagination.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Stefan Gabos",
+                    "email": "contact@stefangabos.ro",
+                    "homepage": "https://github.com/stefangabos",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A generic, Twitter Bootsrap compatible, PHP pagination library that automatically generates navigation links",
+            "homepage": "https://github.com/stefangabos/Zebra_Pagination",
+            "keywords": [
+                "paginate",
+                "pagination",
+                "paginator",
+                "paging",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/stefangabos/Zebra_Pagination/issues",
+                "source": "https://github.com/stefangabos/Zebra_Pagination/tree/2.4.2"
+            },
+            "time": "2021-09-06T17:15:23+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.1.0"
+}

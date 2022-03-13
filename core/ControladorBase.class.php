@@ -502,4 +502,12 @@ class ControladorBase{
 			return array();
 		}
 	}
+	public function getRutaURLActual(){
+		$http = "http://";
+		if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
+			$http = "https://";
+		}
+		$ruta = $http.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']);
+		return $ruta;
+	}
 }

@@ -10,12 +10,27 @@ class PrincipalControl extends TableroBase{
 	private array $arr_tbl_vi_cultivos;
 	public function __construct() {
 		parent::__constructTablero();
+		
+	}
+	public function inicio() {
 		$this->setPaginaDistintivos();
 		//$this->setUsarLibForma(true);
 		$this->defineVista("Sitio.php");
-	}
-	public function inicio() {
+		$this->setUsarLibForma(true);
 		$this->setArrTblViCultivos();
+	}
+	/**
+	 * Para cuando te firmas como productor o comprador aparezca como default la página correspondiente al interés del usuario
+	 * 
+	 */
+	public function redirigir() {
+		if($this->tienePermiso('as-productor')){
+			redireccionar('productor', 'inicio');
+		}elseif($this->tienePermiso('as-comprador')){
+			redireccionar('tienda', 'grid');
+		}else{
+			redireccionar();
+		}
 	}
 	private function setArrTblViCultivos(): void {
 		$cultivo = new Cultivo();

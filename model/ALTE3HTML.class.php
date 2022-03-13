@@ -73,10 +73,14 @@ class ALTE3HTML{
 		}
 		
 		//Para el nav-item Consulta
-		$a_cont_consul = '<i class="nav-icon far fa-list-alt"></i>&nbsp;<p>Consulta</p>';
-		$arr_atrib_consul = ($es_consulta)? array('a_class'=>'nav-link active') : array();
-		$this->setHTMLLiNavItem($controlador_consulta, $accion_consulta, $a_cont_consul, $arr_atrib_consul);
-		$tag_consul = $this->getHTMLContenido();
+		$tag_consul = "";
+		if($controlador_consulta!="" && $accion_consulta!=""){
+			$a_cont_consul = '<i class="nav-icon far fa-list-alt"></i>&nbsp;<p>Consulta</p>';
+			$arr_atrib_consul = ($es_consulta)? array('a_class'=>'nav-link active') : array();
+			$this->setHTMLLiNavItem($controlador_consulta, $accion_consulta, $a_cont_consul, $arr_atrib_consul);
+			$tag_consul = $this->getHTMLContenido();
+		}
+		
 		
 		if($es_nuevo){
 			$a_cont_frm = '<i class="nav-icon fa fa-fw fa-file"></i>&nbsp;<p>Alta registro</p>';
@@ -87,8 +91,11 @@ class ALTE3HTML{
 		$arr_url_arg = array(
 			$cmp_id_nom =>$cmp_id_val
 		);
-		$this->setHTMLLiNavItemExt($controlador_forma, $accion_forma, false, $arr_url_arg, false, $a_cont_frm, $arr_atrib_frm);
-		$tag_frm = $this->getHTMLContenido();
+		$tag_frm = "";
+		if($controlador_forma!="" && $accion_forma!=""){
+			$this->setHTMLLiNavItemExt($controlador_forma, $accion_forma, false, $arr_url_arg, false, $a_cont_frm, $arr_atrib_frm);
+			$tag_frm = $this->getHTMLContenido();
+		}
 		
 		$arr_tag = array();
 		$arr_tag[] = '<li class="nav-item has-treeview'.$arr_activar['menu-open'].'">';
@@ -106,6 +113,68 @@ class ALTE3HTML{
 		$arr_tag[] = '</li>';
 		$this->html_contenido = tag_string($arr_tag);
 	}
+	/**
+	 * Genera string con un tag HTML que contiene el menú para la consulta de opciones definidas en el arreglo del argumento arr_param
+	 * @param type $controlador_actual	Nombre del controlador que actualmente se está consultando
+	 * @param type $accion_actual	Nombre de la acción que actualmente se está consultado
+	 * @param type $arr_param	Arreglo con las opción del menú a mostrar donde el arreglo debe contener la siguiente estructura:
+	 *		{"controlador":{"nombre":"Nombre controlador","titulo":"Título controlador","icono":"Icono controlador Font Awesome"},"arr_acciones":[{"nombre":"Nombre acción 1","titulo":"Título acción 1","icono":"Icono acción Font Awesome"},{"nombre":"Nombre acción 2","titulo":"Título acción 2","icono":"Icono acción Font Awesome"}]}
+	 */
+	public function setArrHTMLTagLiNavItem($controlador_actual, $accion_actual, $arr_param){
+		$arr_controlador = valorEnArreglo($arr_param, 'controlador');
+		$arr_acciones = valorEnArreglo($arr_param, 'arr_acciones');
+		$controlador_nombre = valorEnArreglo($arr_controlador, 'nombre');
+		$controlador_tit = valorEnArreglo($arr_controlador, 'titulo');
+		$controlador_ico = valorEnArreglo($arr_controlador, 'icono');
+		
+		//Busca si en el arr_acciones de arr_param tiene una acción igual a la acción actual (accion_actual)
+		$hay_accion_activa = $this->tiene_valor_sub_arreglo($arr_acciones, 'nombre', $accion_actual);
+		
+		$es_consulta = ($controlador_actual == $controlador_nombre && $hay_accion_activa);
+		//Se activa el menú principal
+		if($es_consulta){
+			$arr_activar = array(
+				'menu-open' => ' menu-open',
+				'active' => ' active'
+			);
+		}else{
+			$arr_activar = array(
+				'menu-open' => '',
+				'active' => ''
+			);
+		}
+		
+		$arr_tag_consul = array();
+		foreach($arr_acciones as $arr_accion){
+			if($controlador_nombre!=""){
+				$accion_nom = valorEnArreglo($arr_accion, 'nombre');
+				$accion_ico = valorEnArreglo($arr_accion, 'icono');
+				$accion_tit = valorEnArreglo($arr_accion, 'titulo');
+				$a_cont_consul = '<i class="nav-icon '.$accion_ico.'"></i>&nbsp;<p>'.$accion_tit.'</p>';
+				$arr_atrib_consul = ($es_consulta && $accion_nom == $accion_actual)? array('a_class'=>'nav-link active') : array();
+				$this->setHTMLLiNavItem($controlador_nombre, $accion_nom, $a_cont_consul, $arr_atrib_consul);
+				$arr_tag_consul[] = $this->getHTMLContenido();
+			}
+		}
+		$tag_consul = tag_string($arr_tag_consul);
+		
+		$arr_tag = array();
+		$arr_tag[] = '<li class="nav-item has-treeview'.$arr_activar['menu-open'].'">';
+		$arr_tag[] = '	<a href="#" class="nav-link'.$arr_activar['active'].'">';
+		$arr_tag[] = '		<i class="nav-icon '.$controlador_ico.'"></i>';
+		$arr_tag[] = '		<p>';
+		$arr_tag[] = '			'.$controlador_tit;
+		$arr_tag[] = '			<i class="right fas fa-angle-left"></i>';
+		$arr_tag[] = '		</p>';
+		$arr_tag[] = '	</a>';
+		$arr_tag[] = '	<ul class="nav nav-treeview">';
+		$arr_tag[] = '		'.$tag_consul;
+		$arr_tag[] = '	</ul>';
+		$arr_tag[] = '</li>';
+		$this->html_contenido = tag_string($arr_tag);
+	}
+	
+	
 	/**
 	 * Devuelve la estructura HTML con el vínculo de contenido desplegable
 	 * @param string $tag_id	Id único de tag
@@ -172,8 +241,64 @@ class ALTE3HTML{
 			$arr_tag[] = '</div>';
 		}else{
 			$arr_tag[] = '<button type="button" class="btn btn-default" data-toggle="modal" data-target="#mdl_adjuntar">Adjuntar archivo...</button>';
-			$arr_tag[] = '<p class="small">Por cuestiones de seguridad, sólo se permite adjuntar un archivo de tipo texto o imagen que no supere los 2 Mb.</p>';
+			$arr_tag[] = '<p class="small">En caso de ser varios archivos, favor de hacer un archivo comprimido con todos ellos.</p>';
 		}
 		$this->html_contenido = tag_string($arr_tag);
+	}
+	/**
+	 * Define la estructura HTML para mostrar el botón de borrar registro
+	 * @param type $controlador_borrar	Controlador a ejecutar para borrar el registro
+	 * @param type $accion_borrar		Acción a ejecutar para borrar el registro
+	 * @param type $controlador_actual	Nombre del controlador actual donde se está ejecutando
+	 * @param type $accion_actual		Nombre de la acción actual donde se está ejecutando
+	 * @param type $cmp_id_nom			Nombre del campo Id del registro
+	 * @param type $cmp_id_val			Valor del campo Id del registro
+	 */
+	public function setHTMLBtnBorrar($controlador_borrar, $accion_borrar, $controlador_actual, $accion_actual, $cmp_id_nom, $cmp_id_val) {
+		$arr_cmps_ocultos = array(
+			"controlador_fuente"=>$controlador_actual,
+			"accion_fuente"=>$accion_actual,
+			$cmp_id_nom=>$cmp_id_val
+		);
+		$this->setHTMLBtnBorrarReg($controlador_borrar, $accion_borrar, $arr_cmps_ocultos);
+	}
+	/**
+	 * Define la estructura HTML para mostrar el botón de borrar registro, versión para mandar en un arreglo los campos ocultos
+	 * @param type $controlador_borrar	Controlador a ejecutar para borrar el registro
+	 * @param type $accion_borrar		Acción a ejecutar para borrar el registro
+	 * @param type $arr_cmps_ocultos	Arreglo con los campos ocultos requeridos en la acción de borrar
+	 */
+	public function setHTMLBtnBorrarReg($controlador_borrar, $accion_borrar, $arr_cmps_ocultos) {
+		
+		$arr_tag_cmps_ocultos = array();
+		foreach($arr_cmps_ocultos as $cmp_nom => $cmp_val){
+			$arr_tag_cmps_ocultos[] = '<input type="hidden" name="'.$cmp_nom.'" value="'.$cmp_val.'">';
+		}
+		$tag_cmps_ocultos = tag_string($arr_tag_cmps_ocultos);
+		
+		$arr_tag = array();
+		$arr_tag[] = '<form class="d-inline frm_borrar" action="'.define_controlador($controlador_borrar, $accion_borrar).'" method="post">';
+		$arr_tag[] = '	'.$tag_cmps_ocultos;
+		$arr_tag[] = '	<button type="submit" class="btn btn-danger btn-sm btn_borrar"><i class="fas fa-trash-alt"></i> Borrar</button>';
+		$arr_tag[] = '</form>';
+		$this->html_contenido = tag_string($arr_tag);
+	}
+	
+	/**
+	 * En un arreglo sin indices con sub-arreglos con misma estructura, busca a partir de la llave indicada en el argumento, si alguno de esos sub-arreglos tienen el valor indicado en el argumento
+	 * @param type $arreglo	Arreglo sin índices que contiene los sub-arreglos
+	 * @param type $llave	Nombre de la llave a buscar en el sub-arreglo
+	 * @param type $valor	Valor a buscar en la llave
+	 * @return boolean
+	 */
+	private function tiene_valor_sub_arreglo($arreglo, $llave, $valor){
+		$tiene_valor = false;
+		foreach($arreglo as $sub_arreglo){
+			if(valorEnArreglo($sub_arreglo, $llave) == $valor){
+				$tiene_valor = true;
+				break;
+			}
+		}
+		return true;
 	}
 }

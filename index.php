@@ -1,10 +1,12 @@
 <?php
 session_start();
 include_once 'core/Global.php';
+include_once 'core/Auxiliar.class.php';
 include_once 'core/Frecuente.func.php';
 include_once 'core/Ayuda.class.php';	//NOTA: Ver si en realidad va a servir
 include_once 'core/ControladorBase.class.php';
 include_once 'core/'.CARPETA_PROYECTO.'/TableroBase.class.php';	//Archivo propio del proyecto
+require_once 'vendor/autoload.php';
 $controlador = (isset($_REQUEST['controlador']))? $_REQUEST['controlador'] : CONTROLADOR_DEFECTO;
 $accion = (isset($_REQUEST['accion']))? $_REQUEST['accion'] : ACCION_DEFECTO;
 

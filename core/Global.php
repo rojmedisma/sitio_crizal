@@ -5,7 +5,7 @@
 
 global $globales;
 global $mysqli;
-$es_conexion_hosting = false;
+$es_conexion_hosting = true;
 
 if($es_conexion_hosting){
 	$dir_confg = $_SERVER['DOCUMENT_ROOT'].'/config/';

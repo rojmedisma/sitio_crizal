@@ -124,6 +124,7 @@ class AdjuntofotoControl extends ControladorBase{
 		$arr_url_arg = array("adjunto_id"=>$adjunto_id);
 		if($this->gale_cmp_id_nom!="" && $this->gale_cmp_id_val!=""){
 			$arr_url_arg[$this->gale_cmp_id_nom] = $this->gale_cmp_id_val;
+			
 		}
 		redireccionar($this->controlador_destino, $this->accion_destino, $arr_url_arg);
 	}

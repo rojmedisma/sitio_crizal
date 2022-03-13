@@ -1,6 +1,6 @@
 <?php
 /**
- * Clase modelo FormularioALTE3
+ * Clase modelo Para los formularios de la plantilla bootstrap Crizal
  * @author Ismael Rojas
  */
 class FormularioCrizal{
@@ -9,10 +9,12 @@ class FormularioCrizal{
 	private bool $usar_div_agrupar = true;
 	private array $arr_error = array();
 	private $ver_nombre_campo = false;
+	private $ver_opc_seleccionar = true;
 	private $con_select2 = false;   //Campos select con las propiedades de la clase select2
 	private $act_opt_desc = false;
 	private $arr_deft_prop = array();
 	private $arr_val_sin_cmp = array();	//Arreglo de validaciones que no estan ligadas a un campo en específico
+	private $txt_opc_seleccionar = "";
 	public function __construct(array $arr_cmps) {
 		//Se hace el primer llenado del arreglo arr_cmp_atrib (Arreglo de atributos/propiedades por campo), con el contenido del arreglo arr_cmp, arreglo obligatorio y necesario
 		if(count($arr_cmps)){
@@ -25,6 +27,7 @@ class FormularioCrizal{
 			}
 			$this->arr_cmp_atrib = $arr_cmp_atrib;
 		}
+		$this->txt_opc_seleccionar = '[Seleccionar]';
 	}
 	/**
 	 * Se agrega el atributo "alerta" al arreglo de atributos/propiedades por campo (arr_cmp_atrib).
@@ -68,6 +71,13 @@ class FormularioCrizal{
 	 */
 	public function setVerNombreCampo(bool $ver_nombre_campo): void{
 	    $this->ver_nombre_campo = $ver_nombre_campo;
+	}
+	/**
+	 * Modifica la variable que indica si se va a mostrar o no la opción [Seleccionar] en los campos select
+	 * @param boolean $ver_nombre_campo	Valor de la bandera
+	 */
+	public function setVerOpcSeleccionar(bool $ver_opc_seleccionar): void{
+		$this->ver_opc_seleccionar = $ver_opc_seleccionar;
 	}
 	/**
 	 * Activa/desactiva la bandera para agrupar el campo con un div de identificación de campo bootstrap
@@ -292,8 +302,9 @@ class FormularioCrizal{
 			return $this->getCmpLecturaSelect($cmp_id_nom, $lbl_txt, $arr_atrib_usu);
 		}else{
 			$db = new BaseDatos();
-			$arr_tbl = $db->getArrDeTabla($tbl_nom, $and_tbl, $id_val_nom);
-
+			$and_tbl_borrar = ($and_tbl=="")? " AND `borrar` IS NULL " : $and_tbl;
+			$arr_tbl = $db->getArrDeTabla($tbl_nom, $and_tbl_borrar, $id_val_nom);
+			
 			$arr_opt = array();
 			foreach ($arr_tbl as $id_val=>$arr_det){
 				$desc_val = (isset($arr_det[$desc_val_nom]))? $arr_det[$desc_val_nom] : "";
@@ -340,12 +351,40 @@ class FormularioCrizal{
 			$tag_cmp .= ' '.$this->getAtributo($cmp_id_nom, 'readonly');
 			$tag_cmp .= ' '.$this->getCheckedChk($cmp_id_nom);
 			$tag_cmp .= '>';
+			$tag_cmp .= $lbl_txt;
 			
 			$arr_tag = array();
 			$arr_tag[] = '<input name="'.$cmp_id_nom.'" id="'.$cmp_id_nom.'_h" type="hidden" value="'.$this->getAtributo($cmp_id_nom, 'unchecked_val').'">';
-			$arr_tag[] = $tag_cmp;
-			$arr_tag[] = $this->getLabel($cmp_id_nom);
+			$arr_tag[] = '<label>';
+			$arr_tag[] = '	'.$tag_cmp;
+			$arr_tag[] = '</label>';
 			return $this->getDivAgrupar($cmp_id_nom, tag_string($arr_tag));
+		}
+	}
+	public function cmpCheckboxLista(string $cmp_id_nom, string $lbl_txt="", array $arr_atrib_usu=array()): string {
+		if($this->esLectura($arr_atrib_usu)){
+			//Pendiente de desarrollar
+			return "";
+		}else{
+			$arr_atrib_usu['cmp_id_nom'] = $cmp_id_nom;
+			$arr_atrib_usu['cmp_tipo'] = 'checkbox';
+			$this->defineArrCmpAtrib($cmp_id_nom, $arr_atrib_usu);
+			
+			$tag_cmp = '<input'
+					. ' class="custom-control-input"'
+					. ' type="checkbox"'
+					. ' name="'.$cmp_id_nom.'"'
+					. ' id="'.$cmp_id_nom.'"'
+					. ' value="'.$this->getAtributo($cmp_id_nom, 'checked_val').'"'
+					. ' '.$this->getAtributo($cmp_id_nom, 'readonly')
+					. ' '.$this->getCheckedChk($cmp_id_nom)
+					. '>';
+			$arr_tag = array();
+			$arr_tag[] = '<li class="custom-control custom-checkbox">';
+			$arr_tag[] = '	'.$tag_cmp;
+			$arr_tag[] = '	<label class="custom-control-label text-left" for="'.$cmp_id_nom.'">'.$lbl_txt.'</label>';
+			$arr_tag[] = '</li>';
+			return tag_string($arr_tag);
 		}
 	}
 	/**
@@ -592,7 +631,7 @@ class FormularioCrizal{
 	 * @return string
 	 */
 	private function getTagOptions($cmp_id_nom){
-		$arr_tag_options = array('<option value="" data-desc_val="" data-esp_val="">[Seleccionar]</option>');
+		$arr_tag_options = ($this->ver_opc_seleccionar)? array('<option value="" data-desc_val="" data-esp_val="">'.$this->txt_opc_seleccionar.'</option>') : array();
 		$arr_options = $this->getAtributo($cmp_id_nom, 'arr_options');
 		$valor_act = $this->getAtributo($cmp_id_nom, 'value');
 		foreach($arr_options as $arr_detalle){
@@ -959,9 +998,9 @@ class FormularioCrizal{
 				'lectura'=>$lectura,
 				'usar_div_agrupar'=>$usar_div_agrupar,
 				'ver_nombre_campo'=>$ver_nombre_campo,
-				'class'=>'form-check-input',
+				'class'=>'',
 				'type'=>'checkbox',
-				'div_group_class'=>'form-check',
+				'div_group_class'=>'checkbox',
 				'lbl_class'=>'form-check-label',
 				'checked_val'=>$checked_val,
 				'unchecked_val'=>$unchecked_val

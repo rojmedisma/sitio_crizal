@@ -8,6 +8,9 @@
 						<div class="col-md-5 col-sm-12">
 							<ul class="text-right xs-text-left sm-margin-8px-top xs-margin-5px-top">
 								<li><a href="<?php echo define_controlador()?>">Inicio</a></li>
+								<?php if($controlador_obj->getPaginaAnterior(0, 'titulo_pagina')!=""):?>
+								<li><a href="<?php echo define_controlador($controlador_obj->getPaginaAnterior(0, 'controlador'), $controlador_obj->getPaginaAnterior(0, 'accion'), false);?>"><?php echo $controlador_obj->getPaginaAnterior(0, 'titulo_pagina'); ?></a></li>
+								<?php endif;?>
 								<li><a href="#!"><?php echo $controlador_obj->getTituloPagina(); ?></a></li>
 							</ul>
 						</div>

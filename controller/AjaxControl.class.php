@@ -20,4 +20,13 @@ class AjaxControl extends ControladorBase{
 		}
 		echo $opt_veh_modelo;
 	}
+	public function get_arr_reg_cult_inventario() {
+		$cult_inventario_id = (isset($_REQUEST["cult_inventario_id"]))? intval($_REQUEST["cult_inventario_id"]) : 0;
+		
+		$cult_inventario = new CultInventario();
+		$cult_inventario->setArrReg($cult_inventario_id);
+		$arr_reg_cult_inv = $cult_inventario->getArrReg();
+		
+		echo json_encode($arr_reg_cult_inv);
+	}
 }

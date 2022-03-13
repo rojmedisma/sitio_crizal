@@ -18,41 +18,13 @@
 								"speed":1000,
 								"frame":"999",
 								"to":"opacity:0;","ease":"Power3.easeOut"
-								}]' data-splitout="none">Be Inspired By Best
+								}]' data-splitout="none">Protegemos el maíz nativo
 							</div>
 							<!-- end layer 1 -->
 							<!-- layer nr. 2 -->
-							<div class="tp-caption tp-resizeme slider-text" data-x="30" data-y="center" data-voffset="[-5,-10,-30,-15]" data-fontsize="[21,21,21,21]" data-lineheight="34" data-width="[600, 500, 400, 300]" data-whitespace="[nowrap, nowrap, nowrap, normal]" data-frames='[{
-								"delay":1700,
-								"speed":1400,
-								"frame":"0",
-								"from":"y:150px;opacity:0;",
-								"ease":"Power3.easeOut",
-								"to":"o:1;"
-								},{
-								"delay":"wait",
-								"speed":1000,
-								"frame":"999",
-								"to":"opacity:0;","ease":"Power3.easeOut"
-								}]'>
-								<p class="white-space text-very-light-gray">Trusted and professional business consultant to fulfill your dreams with latest technology putting on project.</p>
-							</div>
+							
 							<!-- END LAYER 2 -->
 							<!-- layer nr. 3 -->
-							<div class="tp-caption tp-resizeme" data-x="30" data-y="center" data-voffset="[90,110,90,115]" data-lineheight="55" data-hoffset="0" data-frames='[{
-								"delay":1900,
-								"speed":1400,
-								"frame":"0",
-								"from":"y:150px;opacity:0;",
-								"ease":"Power3.easeOut",
-								"to":"o:1;"
-								},{
-								"delay":"wait",
-								"speed":1000,
-								"frame":"999",
-								"to":"opacity:0;","ease":"Power3.easeOut"
-								}]'><a href='#!' class='butn theme'><span>View Project</span></a>
-							</div>
 							<!-- layer nr. 3 -->
 						</li>
 						<li data-transition="parallaxtoright">
@@ -71,41 +43,13 @@
 								"speed":1000,
 								"frame":"999",
 								"to":"opacity:0;","ease":"Power3.easeOut"
-								}]' data-splitout="none">We Build Solution </div>
+								}]' data-splitout="none">Valoramos el esfuerzo de cultivar milpas</div>
 							<!-- end layer 1 -->
 							<!-- layer nr. 2 -->
-							<div class="tp-caption tp-resizeme slider-text text-right" data-x="['right','right','right','right']" data-y="center" data-voffset="[-5,-10,-30,-15]" data-fontsize="[21,21,21,21]" data-hoffset="[30,30,30,30]" data-lineheight="34" data-width="[600, 500, 400, 300]"
-								data-whitespace="[nowrap, nowrap, nowrap, normal]" data-frames='[{
-								"delay":1700,
-								"speed":1400,
-								"frame":"0",
-								"from":"y:150px;opacity:0;",
-								"ease":"Power3.easeOut",
-								"to":"o:1;"
-								},{
-								"delay":"wait",
-								"speed":1000,
-								"frame":"999",
-								"to":"opacity:0;","ease":"Power3.easeOut"
-								}]'>
-								<p class="white-space text-very-light-gray">Trusted and professional business consultant to fulfill your dreams with latest technology putting on project.</p>
-							</div>
+							
 							<!-- END LAYER 2 -->
 							<!-- layer nr. 3 -->
-							<div class="tp-caption tp-resizeme text-right" data-x="['right','right','right','right']" data-y="center" data-voffset="[90,110,90,115]" data-lineheight="55" data-hoffset="[30,30,30,30]" data-frames='[{
-								"delay":1900,
-								"speed":1400,
-								"frame":"0",
-								"from":"y:150px;opacity:0;",
-								"ease":"Power3.easeOut",
-								"to":"o:1;"
-								},{
-								"delay":"wait",
-								"speed":1000,
-								"frame":"999",
-								"to":"opacity:0;","ease":"Power3.easeOut"
-								}]'><a href='#!' class='butn theme'><span>View Project</span></a>
-							</div>
+							
 							<!-- layer nr. 3 -->
 						</li>
 						<li data-transition="parallaxtoleft">
@@ -124,41 +68,14 @@
 								"speed":1000,
 								"frame":"999",
 								"to":"opacity:0;","ease":"Power3.easeOut"
-								}]' data-splitout="none">We Think Differently
+								}]' data-splitout="none">Valoramos el esfuerzo de cultivar milpas
 							</div>
 							<!-- end layer 1 -->
 							<!-- layer nr. 2 -->
-							<div class="tp-caption tp-resizeme slider-text" data-x="30" data-y="center" data-voffset="[-5,-10,-30,-15]" data-fontsize="[21,21,21,21]" data-lineheight="34" data-width="[600, 500, 400, 300]" data-whitespace="[nowrap, nowrap, nowrap, normal]" data-frames='[{
-								"delay":1700,
-								"speed":1400,
-								"frame":"0",
-								"from":"y:150px;opacity:0;",
-								"ease":"Power3.easeOut",
-								"to":"o:1;"
-								},{
-								"delay":"wait",
-								"speed":1000,
-								"frame":"999",
-								"to":"opacity:0;","ease":"Power3.easeOut"
-								}]'>
-								<p class="white-space text-very-light-gray">Trusted and professional business consultant to fulfill your dreams with latest technology putting on project.</p>
-							</div>
+							
 							<!-- END LAYER 2 -->
 							<!-- layer nr. 3 -->
-							<div class="tp-caption tp-resizeme" data-x="30" data-y="center" data-voffset="[90,110,90,115]" data-lineheight="55" data-hoffset="0" data-frames='[{
-								"delay":1900,
-								"speed":1400,
-								"frame":"0",
-								"from":"y:150px;opacity:0;",
-								"ease":"Power3.easeOut",
-								"to":"o:1;"
-								},{
-								"delay":"wait",
-								"speed":1000,
-								"frame":"999",
-								"to":"opacity:0;","ease":"Power3.easeOut"
-								}]'><a href='#!' class='butn theme'><span>View Project</span></a>
-							</div>
+							
 							<!-- layer nr. 3 -->
 						</li>
 					</ul>

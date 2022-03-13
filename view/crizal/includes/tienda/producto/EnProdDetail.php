@@ -30,7 +30,7 @@
 </div>
 <div class="row margin-20px-bottom">
 	<div class="col-lg-12">
-		<button type="button" class="butn theme margin-15px-right xs-margin-10px-bottom" data-toggle="modal" data-target="#mdl_frm_sched"><span><i class="fas fa-arrow-circle-up margin-5px-right"></i> Enviar solicitud</span></button>
+		<button type="button" class="butn theme margin-15px-right xs-margin-10px-bottom" data-toggle="modal" data-target="#mdl_aviso_reg"><span><i class="fas fa-arrow-circle-up margin-5px-right"></i> Enviar solicitud</span></button>
 	</div>
 </div>
 <div class="row">
@@ -45,6 +45,29 @@
 		</ul>
 	</div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="mdl_aviso_reg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">Aviso</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body">
+				<div class="text-center  margin-20px-top">
+					<p>Para poder crear el vínculo con el productor y generar una solicitud de compra, primero es necesario que te registres en nuestra plataforma.</p>
+					<p>Gracias</p>
+					<a href="<?=define_controlador('registro', 'inicio', false, array('usuario_tipo'=>2))?>" class="butn theme"><span>Abrir formulario de registro </span></a>
+				</div>
+				<div class="text-center text-small margin-20px-top">
+					<span>Ya estoy registrado <a href="<?= define_controlador('sesion','inicio') ?>">Iniciar sesión</a></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 
 
 <!-- Modal -->

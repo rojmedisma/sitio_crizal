@@ -38,4 +38,10 @@ class Cultivo extends ModeloBase{
 		}
 		$this->arr_reg = $arr_reg;
 	}
+	public function ejecutaQryVistaCultivo($and="", $select="") {
+		$and_tbl = $this->and_vista." ".$and;
+		return $this->ejecutaQryTbl($and_tbl, $select, true);
+	}
+	
+	
 }

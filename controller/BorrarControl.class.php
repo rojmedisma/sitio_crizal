@@ -70,4 +70,15 @@ class BorrarControl extends ControladorBase{
 		$inventario->borrarRegistro($inventario_id);
 		redireccionar($this->controlador_destino, $this->accion_destino);
 	}
+	public function cult_inventario() {
+		$cultivo_id = (isset($_REQUEST['cultivo_id']))? intval($_REQUEST['cultivo_id']) : 0;
+		$cult_inventario_id = (isset($_REQUEST['cult_inventario_id']))? intval($_REQUEST['cult_inventario_id']) : 0;
+		if(!$this->tienePermiso('borrar-cult')){
+			$this->redireccionaErrorAccion('sin_permisos', array('tit_accion'=>'Borrar Inventario'));
+		}
+		$cult_inventario = new CultInventario();
+		$cult_inventario->borrarRegistro($cult_inventario_id);
+		$arr_url_arg = array('cultivo_id'=>$cultivo_id);
+		redireccionar($this->controlador_destino, $this->accion_destino, $arr_url_arg);
+	}
 }

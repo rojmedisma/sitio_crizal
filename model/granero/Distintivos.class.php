@@ -76,20 +76,6 @@ class Distintivos{
 					"arr_pag_ant"=>array()
 				)
 			),
-			"muestra"=>array(
-				"inicio"=>array(
-					"titulo_pagina"=>"Importar muestra",
-					"arr_pag_ant"=>array()
-				),
-				"validar"=>array(
-					"titulo_pagina"=>"Importar muestra",
-					"arr_pag_ant"=>array()
-				),
-				"integrar"=>array(
-					"titulo_pagina"=>"Importar muestra",
-					"arr_pag_ant"=>array()
-				),
-			),
 			"inventariofrm"=>array(
 				"inicio"=>array(
 					"titulo_pagina"=>"Inventario",
@@ -117,11 +103,41 @@ class Distintivos{
 					"titulo_pagina"=>"Registro",
 					"arr_pag_ant"=>array()
 				),
+				"registrado"=>array(
+					"titulo_pagina"=>"Usuario registrado",
+					"arr_pag_ant"=>array()
+				),
 			),
 			"sesion"=>array(
 				"inicio"=>array(
 					"titulo_pagina"=>"Iniciar sesión",
 					"arr_pag_ant"=>array()
+				),
+			),
+			"productor"=>array(
+				"inicio"=>array(
+					"titulo_pagina"=>"Productor/a",
+					"arr_pag_ant"=>array()
+				),
+			),
+			"prodcultivo"=>array(
+				"inicio"=>array(
+					"titulo_pagina"=>"Cultivo",
+					"arr_pag_ant"=>array(
+							array("controlador"=>"productor","accion"=>"inicio")
+					)
+				),
+				"inventario"=>array(
+					"titulo_pagina"=>"Inventario",
+					"arr_pag_ant"=>array(
+							array("controlador"=>"productor","accion"=>"inicio")
+					)
+				),
+				"fotos"=>array(
+					"titulo_pagina"=>"Fotos",
+					"arr_pag_ant"=>array(
+							array("controlador"=>"productor","accion"=>"inicio")
+					)
 				),
 			)
 		);

@@ -46,3 +46,17 @@ Proyecto para conectar productores agrícolas y compradores haciendo uso de la p
 - Nueva vista **registro** para registar usuario
 - Nueva vista **sesion** para iniciar sesion
 - Nueva clase controlador **SesionControl**
+- Nuevo integración de paquete **stefangabos/zebra_pagination** para la paginación
+
+## Versión 0.1.2.17
+
+> Cambios en la plataforma
+
+- Clase core **ModeloBase**. Se hizo pública la variable tipo objeto **bd** 
+- Nueva clase core **Auxiliar**. Va a contener métdos estáticos. La intención es que sustituya gradualmente a la clase core Ayuda y las funciones del archivo core Frecuentes.func.php.
+
+## Versión 0.1.2.18
+
+> Cambios en la plataforma
+
+- Se cambiaron las secciones de la página de contenido

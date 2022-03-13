@@ -27,4 +27,4 @@
 		<!-- custom css -->
 		<link href="<?php echo DIR_PLANTILLA; ?>/css/styles.css" rel="stylesheet" id="colors">
 		<link rel="stylesheet" href="/<?php echo DIR_LOCAL; ?>/assets/css/crizal/main.css">
-
+		<link rel="stylesheet" href="/<?php echo DIR_LOCAL; ?>/assets/css/<?php echo CARPETA_PROYECTO; ?>/zebra_pagination_mod.css">

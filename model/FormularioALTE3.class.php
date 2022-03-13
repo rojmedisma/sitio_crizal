@@ -292,7 +292,8 @@ class FormularioALTE3{
 			return $this->getCmpLecturaSelect($cmp_id_nom, $lbl_txt, $arr_atrib_usu);
 		}else{
 			$db = new BaseDatos();
-			$arr_tbl = $db->getArrDeTabla($tbl_nom, $and_tbl, $id_val_nom);
+			$and_tbl_borrar = ($and_tbl=="")? " AND `borrar` IS NULL " : $and_tbl;
+			$arr_tbl = $db->getArrDeTabla($tbl_nom, $and_tbl_borrar, $id_val_nom);
 
 			$arr_opt = array();
 			foreach ($arr_tbl as $id_val=>$arr_det){

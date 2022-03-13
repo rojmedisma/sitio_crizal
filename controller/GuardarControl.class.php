@@ -24,9 +24,10 @@ class GuardarControl extends ControladorBase{
 	public function cat_usuario() {
 		$cat_usuario_id = (isset($_REQUEST['cat_usuario_id']))? intval($_REQUEST['cat_usuario_id']) : 0;
 		$clave= (isset($_REQUEST['clave']))? $_REQUEST['clave'] : "";
-		if(!$this->tienePermiso('ae-usuario')){
-			$this->redireccionaErrorAccion('sin_permisos', array('tit_accion'=>'Guardar usuario'));
-		}
+//		if(!$this->tienePermiso('ae-usuario')){
+//			$this->redireccionaErrorAccion('sin_permisos', array('tit_accion'=>'Guardar usuario'));
+//		}
+		
 		$cat_usuario = new CatUsuario();
 		$arr_cmps_cu = $cat_usuario->getArrCmpsTbl();
 		$arr_cmps = array();
@@ -37,8 +38,15 @@ class GuardarControl extends ControladorBase{
 				case 'clave':	//No se guarda la clave ingresada, esa se encripta y guarda con la clase Autentificar
 				case 'borrar':
 					break;
+				case 'usuario':
+					if(isset($_REQUEST[$cmp_nom])){
+						$arr_cmps[$cmp_nom] = txt_sql($_REQUEST['correo']);
+					}else{
+						$arr_cmps[$cmp_nom] = isset($_REQUEST['correo'])? txt_sql($_REQUEST['correo']) : 'NULL';
+					}
+					break;
 				default:
-					$arr_cmps[$cmp_nom] = txt_sql($_REQUEST[$cmp_nom]);
+					$arr_cmps[$cmp_nom] = isset($_REQUEST[$cmp_nom])? txt_sql($_REQUEST[$cmp_nom]) : 'NULL';
 					break;
 			}
 		}

@@ -2,17 +2,18 @@
 /**
  * Clase core ModeloBase
  * Extensión para las clases modelo o que se encuentran en la carpeta 'model'
- * @author Ismael
- *
+ * @author Ismael Rojas
  */
 class ModeloBase extends Ayuda{
 	protected $arr_reg;
 	protected $arr_tbl;
-	protected $bd;
+	public object $bd;
 	protected $tbl_nom;
 	protected $cmp_id_nom;
 	protected $cmp_id_val;
 	protected $html_opc_cat;
+	private $and_search;
+	private $str_query;
 	protected function __construct(){
 		$this->bd = new BaseDatos();
 	}
@@ -81,6 +82,7 @@ class ModeloBase extends Ayuda{
 			}
 			
 		}
+		$this->str_query = $qry_act;
 		$this->cmp_id_val = $cmp_id_val;
 	}
 	/**
@@ -116,6 +118,7 @@ class ModeloBase extends Ayuda{
 	protected function reordenar(){
 		$query = "SET @rownumber = 0; ";
 		$query .= "UPDATE `".$this->bd->getBD()."`.`".$this->tbl_nom."` SET `orden` = (@rownumber:=@rownumber+1) ORDER BY `orden` ASC";
+		$this->str_query = $query;
 		$this->bd->ejecutaQryMultiple($query);
 	}
 	/**
@@ -150,8 +153,41 @@ class ModeloBase extends Ayuda{
 		$cmp_id_nom_def = ($cmp_id_nom=="")? $this->cmp_id_nom : $cmp_id_nom;
 		
 		$qry = "UPDATE `".$this->bd->getBD()."`.`".$tbl_nom_def."` SET `borrar` = '1' WHERE `".$cmp_id_nom_def."` = '".$cmp_id_val."'";
+		$this->str_query = $qry;
 		$this->bd->ejecutaQry($qry);
 		$log = new Log();
-		$log->setRegLog($cmp_id_nom_def, $cmp_id_val, 'borrar', 'Aviso', "Se borró el registro de la tabla ".$tbl_nom);
+		$log->setRegLog($cmp_id_nom_def, $cmp_id_val, 'borrar', 'Aviso', "Se borraron registros ".$cmp_id_nom_def." = ".$cmp_id_val." de la tabla ".$tbl_nom_def);
+	}
+	
+	public function ejecutaQryTbl($and="", $select="", $es_vista=false) {
+		$select_tbl = ($select=="")? "*" : $select;
+		$tbl_nom = ($es_vista)? "v_".$this->tbl_nom : $this->tbl_nom;
+		$str_query = "SELECT ".$select_tbl." FROM `".$this->bd->getBD()."`.`".$tbl_nom."` WHERE 1 ".$and;
+		$this->str_query = $str_query;
+		return $this->bd->ejecutaQry($str_query);
+	}
+	public function setQryAndSearch($arr_cmps, $txt_buscar) {
+		$qry_and_search = " AND  (";
+		if(count($arr_cmps)){
+			$or = "";
+			foreach($arr_cmps as $campo){
+				$qry_and_search .= $or." `".$campo."` LIKE '%".$txt_buscar."%' ";
+				$or = " OR ";
+			}
+		}
+		$this->str_query = $qry_and_search;
+		$qry_and_search .= ") ";
+		$this->and_search = $qry_and_search;
+	}
+	public function getQryAndSearch() {
+		return $this->and_search;
+	}
+	public function getStrQuery(){
+		return $this->str_query;
+	}
+	public function setArrTblVista($and=""){
+		$and_tbl = $this->and_vista." ".$and;
+		$str_query = "SELECT * FROM `{$this->bd->getBD()}`.`{$this->vista_nom}` WHERE 1 ".$and_tbl;
+		$this->arr_tbl = $this->bd->getArrDeQuery($str_query, $this->cmp_id_nom);
 	}
 }

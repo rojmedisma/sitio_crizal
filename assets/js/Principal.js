@@ -511,3 +511,91 @@ function quitar_alerta_de_div(v_nom_div){
 		$(v_nom_div).find("span.help-block").html("");
 	}
 }
+/**
+ * Por el momento ha servido para vaciar aquellos formularios mostrados en una ventana modal, que al cerrarse, se quedan con el ultimo contenido mostrado
+ * @param {string} v_frm_id	Id del formulario
+ * @param {array} a_cmps_ocultos	Arreglo de los campos ocultos que se desa limpiar, debido a que esos no se limpian con reset
+ */
+function formulario_vaciar(v_frm_id, a_cmps_ocultos){
+	var frm_modal = $("#"+v_frm_id);
+	//Se limpia los campos visibles del formulario
+	$("#"+v_frm_id).trigger("reset");
+	//Se limpian los campos ocultos del formulario, indicados en el argumento a_cmps_ocultos
+	for (let i = 0; i < a_cmps_ocultos.length; i++) {
+		frm_modal.find('[name="' + a_cmps_ocultos[i] + '"]').val("");
+		//Para los campos tipo lectura
+		frm_modal.find('#fg_'+a_cmps_ocultos[i]+' p.text-navy').html("");
+	}
+}
+
+function formulario_llenar(v_frm_id, o_cmps){
+	var frm_modal = $("#"+v_frm_id);
+	var i;
+	//console.log(result);
+	for(i in o_cmps){
+		frm_modal.find('[name="' + i + '"]').val(o_cmps[i]);
+		//Para los campos tipo lectura
+		frm_modal.find('#fg_'+i+' p.text-navy').html(o_cmps[i]);
+	}
+}
+/**
+ * 
+ * @param {object} o_btn	Objeto del botón que ejecutó el evento para llamar esta función
+ * @param {string} v_controlador	Nombre del controlador a llamar con ajax para obtener los campos
+ * @param {string} v_accion			Nombre de la acción a llamar con ajax para obtener los campos
+ * @param {string} v_cmp_id_nom		Nombre del campo id del registro a cargarga
+ * @param {string} v_mdl_id_nom		Id del modal a mostrar
+ * @param {string} v_frm_id_nom		Id del formulario que contiene el modal a mostrar
+ * @returns {undefined}
+ */
+function ajax_mostrar_frm_modal(o_btn, v_controlador, v_accion, v_cmp_id_nom, v_mdl_id_nom, v_frm_id_nom){
+	//En el botón debe existir un un dataset con el nombre y valor de campo id
+	var v_cmp_id_val = $(o_btn).data(v_cmp_id_nom);
+	$.ajax({
+		url:"index.php?controlador="+v_controlador+"&accion="+v_accion,
+		data:v_cmp_id_nom+"="+v_cmp_id_val,
+		cache:false,
+		dataType:"json",
+		success:function(result){
+			formulario_llenar(v_frm_id_nom, result);
+			$("#"+v_mdl_id_nom).modal('show');
+		},
+		error:function(result){
+			console.log(result);
+			alert("Error interno. Ver resultado en la consola");
+		}
+	});
+}
+/**
+ * Clase que despliega un modal con el contenido del registro de formulario indicado en los argumentos al llamar a sus métodos
+ */
+let formulario_modal = class{
+	v_mdl_id_nom = "";
+	v_frm_id_nom = "";
+	/**
+	 * Evento que abre el modal al presionar el botón identificado con la clase v_btn_abrir_class
+	 * @param {string} v_btn_abrir_class	Nombre de la clase css para identificar el botón abrir
+	 * @param {string} v_controlador		Nombre del controlador a llamar con ajax para obtener los campos
+	 * @param {string} v_accion				Nombre de la acción a llamar con ajax para obtener los campos
+	 * @param {string} v_cmp_id_nom			Nombre del campo id del registro a cargarga
+	 * @param {string} v_mdl_id_nom			Id del modal a mostrar
+	 * @param {string} v_frm_id_nom			Id del formulario que contiene el modal a mostrar
+	 */
+	on_click_btn_abrir(v_btn_abrir_class, v_controlador, v_accion, v_cmp_id_nom, v_mdl_id_nom, v_frm_id_nom){
+		this.v_mdl_id_nom = v_mdl_id_nom;
+		this.v_frm_id_nom = v_frm_id_nom;
+		$("."+v_btn_abrir_class).click(function(){
+			ajax_mostrar_frm_modal($(this), v_controlador, v_accion, v_cmp_id_nom, v_mdl_id_nom, v_frm_id_nom);
+		});
+	}
+	/**
+	 * 
+	 * @param {array} a_cmps_ocultos	Arreglo con los campos ocultos que se desean limpiar
+	 */
+	on_hide_modal(a_cmps_ocultos){
+		var v_frm_id_nom = this.v_frm_id_nom;
+		$("#"+this.v_mdl_id_nom).on('hide.bs.modal', function(){
+			formulario_vaciar(v_frm_id_nom, a_cmps_ocultos);	//Se encuentra en Principal.js
+		})
+	}
+};

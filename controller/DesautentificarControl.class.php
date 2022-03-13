@@ -17,7 +17,7 @@ class DesautentificarControl extends ControladorBase{
 		$url_uri = (isset($_REQUEST["url_uri"]))? $_REQUEST["url_uri"] : '';
 		$log = new Log();
 		$log->setRegLog('', '', 'Desautentificar', 'Aviso', 'Cerró sesión');
-		redireccionar('autentificar', 'inicio', '', $url_uri);
+		redireccionar('sesion', 'inicio', '', $url_uri);
 	}
 	/**
 	 * Acción que elimina la variable de sesión actual y redirecciona al cotrolador defecto
